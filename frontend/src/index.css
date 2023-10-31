@@ -1,0 +1,13 @@
+.notification {
+    background-color: azure;
+    color: green;
+    padding: 1rem;
+    border-style: solid;
+}
+
+.errorMessage {
+    background-color: rgb(163, 181, 181);
+    color: red;
+    padding: 1rem;
+    border-style: solid;
+}
