@@ -3,6 +3,7 @@
     color: green;
     padding: 1rem;
     border-style: solid;
+    margin-bottom: 1rem;
 }
 
 .errorMessage {
@@ -10,4 +11,5 @@
     color: red;
     padding: 1rem;
     border-style: solid;
+    margin-bottom: 1rem;
 }
