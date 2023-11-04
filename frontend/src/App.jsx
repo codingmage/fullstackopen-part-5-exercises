@@ -71,7 +71,7 @@ const App = () => {
 		} */
 		try {
 			const responseBlog = await blogService.createBlog(newBlog)
-			setBlogs([...blogs, responseBlog])
+			setBlogs([...blogs, {...responseBlog, user: user }])
 			blogFormRef.current.toggleVisibility()
 			/* 			setBlogName("")
 			setBlogAuthor("")
