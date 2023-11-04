@@ -73,7 +73,7 @@ blogsRouter.delete("/:id", async (request, response) => {
 blogsRouter.put("/:id", async (request, response) => {
 	const body = request.body
 
-	const user = await User.findById(body.userId)
+	const user = await User.findById(body.user)
 
 	const noLikes = !body.likes
 

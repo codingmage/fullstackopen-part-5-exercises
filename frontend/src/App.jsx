@@ -6,6 +6,7 @@ import Notification from "./components/Notification"
 import "./index.css"
 import Togglable from "./components/Togglable"
 import BlogForm from "./components/BlogForm"
+import axios from "axios"
 
 const App = () => {
 	const [blogs, setBlogs] = useState([])
@@ -91,6 +92,18 @@ const App = () => {
 
 	}
 
+	const updateLikes = async (id, blog) => {
+		try {
+			await blogService.updateBlog(id, blog)
+		} catch (error) {
+			console.log(error)
+			setNotificationMessage({...notificationMessage, type: "error", text:`could not update likes. ${error.response.data.error}`})
+			setTimeout(() => {
+				setNotificationMessage("")
+			}, 5000)
+		}
+	}
+
 	const blogFormRef = useRef()
 
 	if (user === null) {
@@ -158,7 +171,7 @@ const App = () => {
 
 			<br />
 			{blogs.map(blog =>
-				<Blog key={blog.id} blog={blog} />
+				<Blog key={blog.id} blog={blog} updateBlog={updateLikes} />
 			)}
 		</div>
 	)
