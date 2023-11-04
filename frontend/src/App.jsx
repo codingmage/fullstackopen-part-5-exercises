@@ -19,9 +19,11 @@ const App = () => {
 	const [blogURL, setBlogURL] = useState("")
  */
 	useEffect(() => {
-		blogService.getAll().then(blogs =>
-			setBlogs( blogs )
-		)  
+		blogService.getAll().then(blogs => {
+			const sortedBlogs = blogs.sort((a, b) => a.likes - b.likes)
+			const mostLikesFirst = sortedBlogs.reverse()
+			setBlogs(mostLikesFirst)
+		})  
 	}, [])
 
 	useEffect(() => {
@@ -104,6 +106,9 @@ const App = () => {
 		}
 	}
 
+	/* 	const sortedBlogs = blogs.sort((a, b) => a.likes - b.likes)
+	const mostLikesFirst = sortedBlogs.reverse() */
+
 	const blogFormRef = useRef()
 
 	if (user === null) {
@@ -156,18 +161,6 @@ const App = () => {
 			<Togglable buttonLabel="create new blog" ref={blogFormRef}>
 				<BlogForm createBlog={handleNewBlog} />
 			</Togglable>
-
-			{/* 			<div>
-				<h2>Add a new blog</h2>
-
-				<form onSubmit={handleNewBlog}>
-					<p>title: <input type="text" name='Title' value={blogName} onChange={({target}) => setBlogName(target.value)} /></p>
-					<p>author: <input type="text" name='Author' value={blogAuthor} onChange={({target}) => setBlogAuthor(target.value)} /></p>
-					<p>url: <input type="text" name='URL' value={blogURL} onChange={({target}) => setBlogURL(target.value)} /></p>
-					<button type='submit' >Add</button>
-
-				</form>
-			</div> */}
 
 			<br />
 			{blogs.map(blog =>
