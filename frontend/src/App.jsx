@@ -6,7 +6,6 @@ import Notification from "./components/Notification"
 import "./index.css"
 import Togglable from "./components/Togglable"
 import BlogForm from "./components/BlogForm"
-import axios from "axios"
 
 const App = () => {
 	const [blogs, setBlogs] = useState([])
