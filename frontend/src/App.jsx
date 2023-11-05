@@ -106,6 +106,24 @@ const App = () => {
 		}
 	}
 
+	const deleteThisBlog = async (id, name) => {
+		if(confirm(`Delete ${name} ?`) === true) {
+			try {
+				await blogService.deleteBlog(id)
+				const blogsWithoutDeleted = blogs.filter(blog => blog.id !== id)
+				setBlogs(blogsWithoutDeleted)
+				setNotificationMessage({...notificationMessage, type: "info", text:`blog ${name} deleted`})
+			} catch (error) {
+				setNotificationMessage({...notificationMessage, type: "error", text:`could not delete blog. ${error.response.data.error}`})
+				setTimeout(() => {
+					setNotificationMessage("")
+				}, 5000)
+			}
+			
+
+		}
+	}
+
 	/* 	const sortedBlogs = blogs.sort((a, b) => a.likes - b.likes)
 	const mostLikesFirst = sortedBlogs.reverse() */
 
@@ -159,12 +177,12 @@ const App = () => {
 			</div>
 			<br />
 			<Togglable buttonLabel="create new blog" ref={blogFormRef}>
-				<BlogForm createBlog={handleNewBlog} />
+				<BlogForm createBlog={handleNewBlog}  />
 			</Togglable>
 
 			<br />
 			{blogs.map(blog =>
-				<Blog key={blog.id} blog={blog} updateBlog={updateLikes} />
+				<Blog key={blog.id} blog={blog} updateBlog={updateLikes} deleteBlog={deleteThisBlog} currentUserName={user.username} />
 			)}
 		</div>
 	)
