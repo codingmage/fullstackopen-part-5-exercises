@@ -2,6 +2,7 @@ module.exports = {
 	"env": {
 		"browser": true,
 		"es2021": true,
+		"jest/globals": true
 	},
 	"extends": [
 		"eslint:recommended",
@@ -13,7 +14,7 @@ module.exports = {
 	"overrides": [
 		{
 			"env": {
-				"node": true
+				"node": true,
 			},
 			"files": [
 				".eslintrc.{js,cjs}"
@@ -28,7 +29,7 @@ module.exports = {
 		"sourceType": "module"
 	},
 	"plugins": [
-		"react"
+		"react", "jest"
 	],
 	"rules": {
 		"indent": [
@@ -49,6 +50,6 @@ module.exports = {
 		],
 		"react/prop-types": 0,
 		"react/react-in-jsx-scope": "off",
-		"no-unused-vars": 0
+		"no-unused-vars": 0,
 	}
 }

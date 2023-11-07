@@ -48,13 +48,13 @@ const Blog = ({ blog, updateBlog, deleteBlog, currentUserName }) => {
 
 	return (
 		<div className="blogStyle">
-			<span>
+			<span id="main-info" >
 				{blog.title} - {blog.author} 
 				<button className="smallButton" onClick={handleVisibility}>{buttonContent}</button>
 			</span>
-			<div style={showWhenVisible}>
+			<div style={showWhenVisible} id="extra-info">
 				<div>{blog.url}</div>
-				<div>{newLikes} <button onClick={handleLiking}>like</button></div>
+				<div>{newLikes} <button className="likeButton" onClick={handleLiking}>like</button></div>
 				<div>{blog.user.name}</div>
 				{sameUser ? <button onClick={handleDelete}>remove</button> : ""}
 			</div>
