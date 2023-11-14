@@ -7,6 +7,12 @@ describe("Blog app", function() {
 			password: "testpassword"
 		}
 		cy.request("POST", "http://localhost:3003/api/users/", user)
+		const secondUser = {
+			name: "Second Me",
+			username: "second",
+			password: "password"
+		}
+		cy.request("POST", "http://localhost:3003/api/users/", secondUser)
 		cy.visit("http://localhost:5173")
 	})
   
@@ -79,6 +85,29 @@ describe("Blog app", function() {
 
 				cy.contains("blog title - blog author").parent().find(".likeButton").click()
 				cy.contains("blog title - blog author").parent().find("#blogLikes").should("contain", "1")
+			})
+
+			it("the user who created the blog can delete it", function() {
+				cy.contains("blog title - blog author").contains("view").click()
+				cy.contains("blog title - blog author").contains("hide")
+
+				cy.contains("blog title - blog author").parent().find("#delete-button").click()
+				cy.contains("blog title - blog author").should("not.exist")
+			})
+
+			it("the user who didn't create it can't delete it", function() {
+				cy.get("#logout-button").click()
+
+				cy.request("POST", "http://localhost:3003/api/login", {
+					username: "second", password: "password"
+				}).then(response => {
+					localStorage.setItem("loggedInUser", JSON.stringify(response.body))
+					cy.visit("http://localhost:5173")
+				})
+
+				cy.contains("blog title - blog author").contains("view").click()
+				cy.contains("blog title - blog author").parent().find("#delete-button").should("not.exist")
+
 			})
 		})
 	})
