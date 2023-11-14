@@ -109,6 +109,23 @@ describe("Blog app", function() {
 				cy.contains("blog title - blog author").parent().find("#delete-button").should("not.exist")
 
 			})
+
+			it("the blogs are sorted by likes", function() {
+				cy.contains("blog title - blog author").contains("view").click()
+				cy.contains("blog title - blog author").parent().find(".likeButton").click()
+
+				cy.contains("second title").contains("view").click()
+				cy.contains("second title").parent().find(".likeButton").click()
+				cy.wait(400)
+				cy.contains("second title").parent().find(".likeButton").click()
+
+				cy.reload()
+
+				cy.get(".blogStyle").eq(0).should("contain", "second title")
+				cy.get(".blogStyle").eq(1).should("contain", "blog title - blog author")
+
+
+			})
 		})
 	})
 })

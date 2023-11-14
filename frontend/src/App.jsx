@@ -19,9 +19,8 @@ const App = () => {
  */
 	useEffect(() => {
 		blogService.getAll().then(blogs => {
-			const sortedBlogs = blogs.sort((a, b) => a.likes - b.likes)
-			const mostLikesFirst = sortedBlogs.reverse()
-			setBlogs(mostLikesFirst)
+			const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
+			setBlogs(sortedBlogs)
 		})  
 	}, [])
 
