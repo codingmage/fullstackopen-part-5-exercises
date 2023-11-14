@@ -1,6 +1,6 @@
 const blogsRouter = require("express").Router()
 const Blog = require("../models/blog")
-const User = require("../models/user")
+/* const User = require("../models/user") */
 
 // use express-async-errors instead of try/catch
 
@@ -71,24 +71,27 @@ blogsRouter.delete("/:id", async (request, response) => {
 })
 
 blogsRouter.put("/:id", async (request, response) => {
+	// as per the answer:
+	const { title, author, url, likes } = request.body
+
+	const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { title, author, url, likes }, { new: true })
+
+	response.json(updatedBlog)
+/* 	old answer, buggy if called before reloading page
 	const body = request.body
 
 	const user = await User.findById(body.user)
-
-	const noLikes = !body.likes
 
 	const updatedBlog = {
 		title: body.title,
 		author: body.author,
 		url: body.url,
-		likes: noLikes ? 0 : body.likes,
+		likes: body.likes,
 		user: user.id
 	}
 
 	await Blog.findByIdAndUpdate(request.params.id, updatedBlog, { new: true })
-	/*   user.blogs = [...user.blogs, updatedBlog]
-  await user.save() */
-	response.status(200).end()
+	response.status(200).end() */
 })
 
 module.exports = blogsRouter

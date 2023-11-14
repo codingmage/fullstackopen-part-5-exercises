@@ -73,6 +73,7 @@ const App = () => {
 		} */
 		try {
 			const responseBlog = await blogService.createBlog(newBlog)
+			console.log(responseBlog)
 			setBlogs([...blogs, {...responseBlog, user: user }])
 			blogFormRef.current.toggleVisibility()
 			/* 			setBlogName("")
@@ -160,7 +161,7 @@ const App = () => {
 							/>
 						</span>
 					</div>
-					<button type='submit'>login</button>
+					<button id="login-button" type='submit'>login</button>
 				</form>
 			</div>
 		)

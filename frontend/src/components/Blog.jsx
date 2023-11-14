@@ -27,7 +27,8 @@ const Blog = ({ blog, updateBlog, deleteBlog, currentUserName }) => {
 			author: blog.author,
 			url: blog.url, 
 			likes: likesPlusOne, 
-			user: blog.user.id}
+			/* user: blog.user.id */
+		}
 
 		updateBlog(blog.id, updatedBlog)
 
@@ -54,7 +55,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, currentUserName }) => {
 			</span>
 			<div style={showWhenVisible} id="extra-info">
 				<div>{blog.url}</div>
-				<div>{newLikes} <button className="likeButton" onClick={handleLiking}>like</button></div>
+				<div id="blogLikes">{newLikes} <button className="likeButton" onClick={handleLiking}>like</button></div>
 				<div>{blog.user.name}</div>
 				{sameUser ? <button onClick={handleDelete}>remove</button> : ""}
 			</div>
